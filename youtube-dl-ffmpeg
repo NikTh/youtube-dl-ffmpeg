@@ -1,0 +1,50 @@
+# Copyleft (ͻ) 2017 Nick Thom.
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses/.
+
+#!/usr/bin/env bash
+
+type youtube-dl >/dev/null 2>&1 || { printf >&2 "Το youtube-dl απαιτείται αλλά δεν είναι εγκατεστημένο. Έξοδος."; exit 1; }
+
+type ffmpeg >/dev/null 2>&1 || { printf >&2 "Το ffmpeg απαιτείται αλλά δεν είναι εγκατεστημένο. Έξοδος."; exit 1; }
+
+echo ""
+printf "Δώστε το χρονικό σημείο από όπου θέλετε να ξεκινήσει η λήψη.\nπχ. 3427\n"
+echo ""
+
+read time
+
+echo ""
+printf "Δώστε τη διεύθυνση του βίντεο.\nπχ https://www.youtube.com/watch?v=dirf43324\n"
+echo ""
+
+read url
+
+echo ""
+printf "Δώστε το χρόνο διάρκειας της λήψης σε δευτερόλεπτα.\nπχ. 300 = 5λεπτά\n"
+echo ""
+
+read seconds
+
+echo ""
+printf "Δώστε το όνομα του εξαγόμενου αρχείου χωρίς κενα.\nπχ. my-video\n"
+echo ""
+
+read name
+
+echo ""
+printf "Αν όλες οι παραπάνω τιμές είναι σωστές,\nτο αποτέλεσμα θα αποθηκευτεί ως $name.mp4 στο κατάλογο $PWD\n"
+echo ""
+
+ffmpeg -ss $time -i $(youtube-dl -f 22 --get-url $url) -t $seconds -c:v copy -c:a copy $name.mp4
