@@ -38,7 +38,7 @@ echo ""
 read seconds
 
 echo ""
-printf "Δώστε το όνομα του εξαγόμενου αρχείου χωρίς κενα.\nπχ. my-video\n"
+printf "Δώστε το όνομα του εξαγόμενου αρχείου χωρίς κενά.\nπχ. my-video\n"
 echo ""
 
 read name
